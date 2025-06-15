@@ -1,10 +1,7 @@
 import { imageData64 } from "./utils/image64.js";
 import { standardDither } from "./utils/standardDither.js";
-import { fillCanvas } from "./utils/utility.js";
+import { fillCanvas, initializeCanvas } from "./utils/utility.js";
 import { closestColor } from "./utils/closestColor.js";
-
-const MATRIX_SIZE = 4;
-const POWER = 4;
 
 addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector('#image-canvas');
@@ -16,41 +13,66 @@ addEventListener("DOMContentLoaded", () => {
   const image = new Image();
   image.src = imageData64;
   let pixelMatrix;
-  let width = 0;
-  let height = 0;
+
+  let power;
+  let matrixSize;
+
+  const powerButtons = document.querySelectorAll("input[name='power']");
+  for (const powerButton of powerButtons) {
+    if (powerButton.checked) {
+      power = powerButton.value;
+      break;
+    }
+  }
+
+  const matrixSizeButtons = document.querySelectorAll("input[name='matrix-size']");
+  for (const matrixSizeButton of matrixSizeButtons) {
+    if (matrixSizeButton.checked) {
+      matrixSize = matrixSizeButton.value;
+      break;
+    }
+  }
 
   image.addEventListener("load", () => {
-    width = image.width;
-    height = image.height;
-    canvas.width = width;
-    canvas.height = height;
-    ctx.drawImage(image, 0, 0, width, height);
+    const width = image.width;
+    const height = image.height;
 
-    ditherCanvas.width = width;
-    ditherCanvas.height = height;
-    ditherCtx.drawImage(image, 0, 0, width, height);
+    initializeCanvas(canvas, ctx, image, width, height);
+    initializeCanvas(ditherCanvas, ditherCtx, image, width, height);
+
     pixelMatrix = getColorMatrix(ctx, width, height);
+
+    document.querySelector('.power-container').addEventListener('change', (event) => {
+      if (event.target.type === 'radio' && event.target.name === 'power') {
+        power = event.target.value;
+      }
+
+      console.log(power)
+    })
+
+    document.querySelector('.matrix-size-container').addEventListener('change', (event) => {
+      if (event.target.type === 'radio' && event.target.name === 'matrix-size') {
+        matrixSize = event.target.value;
+      }
+
+      console.log(matrixSize);
+    })
+
+
+    document.querySelector("#undithered-render").addEventListener("click", () => {
+      const closestPixels = closestColor(pixelMatrix, power);
+      fillCanvas(ditherCtx, closestPixels, width, height);
+
+      console.log("undithered-render: finish");
+    })
+
+    document.querySelector('#standard-dither').addEventListener("click", () => {
+      const ditheredPixels = standardDither(pixelMatrix, Number(matrixSize), power);
+      fillCanvas(ditherCtx, ditheredPixels, width, height);
+
+      console.log("standard-dither: finish");
+    })
   });
-
-  document.querySelector("#undithered-render").addEventListener("click", () => {
-    if (!pixelMatrix) {
-      console.log('no image found');
-      return;
-    }
-
-    const closestPixels = closestColor(pixelMatrix, POWER);
-    fillCanvas(ditherCtx, closestPixels, width, height);
-  })
-
-  document.querySelector('#standard-dither').addEventListener("click", () => {
-    if (!pixelMatrix) {
-      console.log('no image found');
-      return;
-    }
-
-    const ditheredPixels = standardDither(pixelMatrix, MATRIX_SIZE, POWER);
-    fillCanvas(ditherCtx, ditheredPixels, width, height);
-  })
 });
 
 const getColorMatrix = (ctx, width, height) => {

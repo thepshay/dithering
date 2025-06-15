@@ -39,3 +39,9 @@ export const fillCanvas = (ctx, newPixels, width, height) => {
     }
   }
 }
+
+export const initializeCanvas = (canvas, ctx, image, width, height) => {
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(image, 0, 0, width, height);
+}

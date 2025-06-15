@@ -20,10 +20,44 @@
     <canvas id="image-canvas"></canvas>
     <canvas id="dither-canvas"></canvas>
   </div>
-  <div class="button-container">
-    <button id="undithered-render">Undithered Render</button>
-    <button id="standard-dither">Standard Dither</button>
-  </div>
+
+  <div class="controls">
+    <div>
+      <h3>Power</h3>
+      <div class="radio-group power-container">
+        <input type="radio" id="power1" name="power" value="1" checked/>
+        <label for="power1">1</label>
+        <input type="radio" id="power2" name="power" value="2" />
+        <label for="power2">2</label>
+        <input type="radio" id="power3" name="power" value="3" />
+        <label for="power3">3</label>
+        <input type="radio" id="power4" name="power" value="4" />
+        <label for="power4">4</label>
+        <input type="radio" id="power5" name="power" value="5" />
+        <label for="power5">5</label>
+        <input type="radio" id="power6" name="power" value="6" />
+        <label for="power6">6</label>
+        <input type="radio" id="power7" name="power" value="7" />
+        <label for="power7">7</label>
+        <input type="radio" id="power8" name="power" value="8" />
+        <label for="power8">8</label>
+      </div>
+      <div>
+        <h3>Matrix Threshold Size</h3>
+        <div class="radio-group matrix-size-container">
+          <input type="radio" id="matrix-size1" name="matrix-size" value="2" checked>
+          <label for="matrix-size1">2</label>
+          <input type="radio" id="matrix-size2" name="matrix-size" value="4" />
+          <label for="matrix-size2">4</label>
+          <input type="radio" id="matrix-size3" name="matrix-size" value="8" />
+          <label for="matrix-size3">8</label>
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button id="undithered-render">Undithered Render</button>
+      <button id="standard-dither">Standard Dither</button>
+    </div>
 </body>
 
 </html>
