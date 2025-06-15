@@ -1,0 +1,19 @@
+body {
+  background-color: #1d1d1d;
+  color: #a1a1a1
+}
+
+.canvas-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  width: fit-content;
+  padding-bottom: 32px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: fit-content;
+}
