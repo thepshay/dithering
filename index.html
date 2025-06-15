@@ -9,6 +9,7 @@
   <script type="module" src="./utils/closestColor.js"></script>
   <script type="module" src="./utils/standardDither.js"></script>
   <script type="module" src="./utils/orderedDither1_1.js"></script>
+  <script type="module" src="./utils/orderedDither1_2.js"></script>
   <script type="module" src="./utils/thresholdMatrix.js"></script>
   <script type="module" src="./utils/getColorPalette.js"></script>
   <script type="module" src="./utils/utility.js"></script>
@@ -24,9 +25,9 @@
 
   <div class="controls">
     <div>
-      <h3>Power</h3>
+      <h3>Quantize Power (base 2)</h3>
       <div class="radio-group power-container">
-        <input type="radio" id="power1" name="power" value="1" checked/>
+        <input type="radio" id="power1" name="power" value="1" checked />
         <label for="power1">1</label>
         <input type="radio" id="power2" name="power" value="2" />
         <label for="power2">2</label>
@@ -58,7 +59,10 @@
     <div class="button-container">
       <button id="undithered-render">Undithered Render</button>
       <button id="standard-dither">Standard Dither</button>
-      <button id="order-dithering-1-1">Ordered Dithering 1.1</button>
+      <div class="order-dithering-group-1">
+        <button id="order-dithering-1-1">Ordered Dithering 1.1</button>
+        <button id="order-dithering-1-2">Ordered Dithering 1.2</button>
+      </div>
     </div>
 </body>
 

@@ -2,28 +2,7 @@ import { getColorPalette } from "./getColorPalette.js";
 import { getNormalizedBayerMatrix } from "./thresholdMatrix.js";
 import { getEuclieanDistance } from "./utility.js";
 
-// For each pixel, Input, in the original picture:
-//   Factor  = ThresholdMatrix[xcoordinate % X][ycoordinate % Y];
-//   Make a Plan, based on Input and the Palette.
-
-//   If Factor < Plan.ratio,
-//     Draw pixel using Plan.color2
-//   else,
-//     Draw pixel using Plan.color1
-
-//   SmallestPenalty = 10^99 /* Impossibly large number */
-// For each unique combination of two colors from the palette, Color1 and Color2:
-//   For each possible Ratio, 0 .. (X*Y-1):
-//     /* Determine what mixing the two colors in this proportion will produce */
-//     Mixed = Color1 + Ratio * (Color2 - Color1) / (X*Y)
-//     /* Rate how well it matches what we want to accomplish */
-//     Penalty = Evaluate the difference of Input and Mixed.
-//     /* Keep the result that has the smallest error */
-//     If Penalty < SmallestPenalty,
-//       SmallestPenalty = Penalty
-//       Plan = { Color1, Color2, Ratio / (X*Y) }.
-
-export const orderDither1_1 = (pixelMatrix, thresholdSize, power) => {
+export const orderDither1_2 = (pixelMatrix, thresholdSize, power) => {
   const thresholdMatrix = getNormalizedBayerMatrix(thresholdSize);
   const ditheredPixels = [];
   const palette = getColorPalette(pixelMatrix.flat(), power);
@@ -97,7 +76,8 @@ const evaluateMixingError = (
   mixedColor,
   color1,
   color2,
-  ratio
+  ratio,
 ) => {
-  return getEuclieanDistance(inputColor, mixedColor);
+  return getEuclieanDistance(inputColor, mixedColor) +
+    getEuclieanDistance(color1, color2) * 0.1;
 }
