@@ -1,7 +1,8 @@
 import { imageData64 } from "./utils/image64.js";
-import { standardDither } from "./utils/standardDither.js";
 import { fillCanvas, initializeCanvas } from "./utils/utility.js";
 import { closestColor } from "./utils/closestColor.js";
+import { standardDither } from "./utils/standardDither.js";
+import { orderDither1_1 } from "./utils/orderedDither1_1.js";
 
 addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector('#image-canvas');
@@ -71,6 +72,13 @@ addEventListener("DOMContentLoaded", () => {
       fillCanvas(ditherCtx, ditheredPixels, width, height);
 
       console.log("standard-dither: finish");
+    })
+
+    document.querySelector('#order-dithering-1-1').addEventListener("click", () => {
+      const orderDitherPixels1_1 = orderDither1_1(pixelMatrix, Number(matrixSize), power);
+      fillCanvas(ditherCtx, orderDitherPixels1_1, width, height);
+
+      console.log('order-dithering-1-1: finish');
     })
   });
 });
