@@ -2,10 +2,10 @@ import { getColorPalette } from "./getColorPalette.js";
 import { getNormalizedBayerMatrix } from "./thresholdMatrix.js";
 import { getEuclieanDistance } from "./utility.js";
 
-// Similar to 1_1, but penalizes colors for being farther apart on the spectrum
+// Similar to 1_2, but penalizes colors EVEN MORE for being farther apart on the spectrum
 // produces a less spotty render
 
-export const orderDither1_2 = (pixelMatrix, thresholdSize, power) => {
+export const orderDither1_3 = (pixelMatrix, thresholdSize, power) => {
   const thresholdMatrix = getNormalizedBayerMatrix(thresholdSize);
   const ditheredPixels = [];
   const palette = getColorPalette(pixelMatrix.flat(), power);
@@ -82,5 +82,5 @@ const evaluateMixingError = (
   ratio,
 ) => {
   return getEuclieanDistance(inputColor, mixedColor) +
-    getEuclieanDistance(color1, color2) * 0.1;
+    getEuclieanDistance(color1, color2) * 0.1 + (Math.abs(ratio - 0.5) + 0.5);
 }

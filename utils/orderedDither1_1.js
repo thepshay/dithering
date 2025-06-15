@@ -36,7 +36,7 @@ export const orderDither1_1 = (pixelMatrix, thresholdSize, power) => {
       const factor = thresholdMatrix[x % thresholdSize][y % thresholdSize];
 
       const result = mixingPlan(pixel, palette, thresholdSize);
-      const { palette_index1, palette_index2, ratio} = result;
+      const { palette_index1, palette_index2, ratio } = result;
 
       if (factor < ratio) {
         row.push(palette[palette_index2]);
@@ -74,8 +74,8 @@ const mixingPlan = (inputColor, palette, thresholdSize) => {
         const penalty = evaluateMixingError(
           inputColor,
           { r: r3, g: g3, b: b3 },
-          { r: r1, g: g1, b: b1 },
-          { r: r2, g: g2, b: b2 },
+          palette[i],
+          palette[j],
           k / denominator,
         )
 
