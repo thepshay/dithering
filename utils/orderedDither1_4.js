@@ -46,16 +46,17 @@ const mixingPlan = (inputColor, palette, thresholdSize) => {
   for (let i = 0; i < paletteSize; i++) {
     for (let j = i; j < paletteSize; j++) {
 
+      const { r, g, b } = inputColor;
       const { r: r1, g: g1, b: b1 } = palette[i];
       const { r: r2, g: g2, b: b2 } = palette[j];
       let ratio = denominator / 2;
 
-      if (r1 !== r2 && g1 !== g2 && b1 !== b2) {
+      if (r1 !== r2 || g1 !== g2 || b1 !== b2) {
 
         ratio =
-          ((r1 === r2 ? 299 * denominator * (r - r1) / (r2 - r1) : 0)
-            + (g1 === g2 ? 587 * denominator * (g - g1) / (g2 - g1) : 0)
-            + (b1 === b2 ? 114 * denominator * (b - b1) / (b2 - b1) : 0))
+          ((r1 !== r2 ? 299 * denominator * (r - r1) / (r2 - r1) : 0)
+            + (g1 !== g2 ? 587 * denominator * (g - g1) / (g2 - g1) : 0)
+            + (b1 !== b2 ? 114 * denominator * (b - b1) / (b2 - b1) : 0))
           / ((r2 != r1 ? 299 : 0)
             + (g2 != g1 ? 587 : 0)
             + (b2 != b1 ? 114 : 0));
