@@ -1,6 +1,13 @@
 import { getNormalizedBayerMatrix } from "./thresholdMatrix.js";
 import { getColorPalette } from "./getColorPalette.js";
-import { getEuclieanDistance } from "./utility.js";
+import { getClosestColor } from "./utility.js";
+
+// Threshold = COLOR(256/4, 256/4, 256/4); /* Estimated precision of the palette */
+// For each pixel, Input, in the original picture:
+//   Factor  = ThresholdMatrix[xcoordinate % X][ycoordinate % Y];
+//   Attempt = Input + Factor * Threshold
+//   Color = FindClosestColorFrom(Palette, Attempt)
+//   Draw pixel using Color
 
 // uniform precision
 export const standardDither = (pixelMatrix, thresholdSize, power) => {
@@ -29,22 +36,4 @@ export const standardDither = (pixelMatrix, thresholdSize, power) => {
   }
 
   return ditheredPixels;
-}
-
-const getClosestColor = (targetColor, palette) => {
-
-  let minDist = 1000;
-  let closestColor = { r: 0, g: 0, b: 0 };
-
-  for (let i = 0; i < palette.length; i++) {
-    const currColor = palette[i];
-    const currDist = getEuclieanDistance(targetColor, currColor);
-
-    if (currDist < minDist) {
-      minDist = currDist;
-      closestColor = currColor;
-    }
-  }
-
-  return closestColor;
 }

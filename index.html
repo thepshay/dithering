@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module" src="script.js"></script>
   <script type="module" src="./utils/image64.js"></script>
+  <script type="module" src="./utils/closestColor.js"></script>
   <script type="module" src="./utils/standardDither.js"></script>
   <script type="module" src="./utils/thresholdMatrix.js"></script>
   <script type="module" src="./utils/getColorPalette.js"></script>
@@ -12,13 +14,16 @@
   <link rel="stylesheet" href="styles.css">
   <title>Document</title>
 </head>
+
 <body>
   <div class="canvas-container">
     <canvas id="image-canvas"></canvas>
     <canvas id="dither-canvas"></canvas>
   </div>
   <div class="button-container">
+    <button id="undithered-render">Undithered Render</button>
     <button id="standard-dither">Standard Dither</button>
   </div>
 </body>
+
 </html>

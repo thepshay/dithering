@@ -1,12 +1,12 @@
 import { imageData64 } from "./utils/image64.js";
 import { standardDither } from "./utils/standardDither.js";
+import { fillCanvas } from "./utils/utility.js";
+import { closestColor } from "./utils/closestColor.js";
 
 const MATRIX_SIZE = 4;
-const POWER = 2;
+const POWER = 4;
 
-addEventListener("DOMContentLoaded", (event) => {
-  console.log('hello')
-
+addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector('#image-canvas');
   const ctx = canvas.getContext('2d');
 
@@ -32,6 +32,16 @@ addEventListener("DOMContentLoaded", (event) => {
     pixelMatrix = getColorMatrix(ctx, width, height);
   });
 
+  document.querySelector("#undithered-render").addEventListener("click", () => {
+    if (!pixelMatrix) {
+      console.log('no image found');
+      return;
+    }
+
+    const closestPixels = closestColor(pixelMatrix, POWER);
+    fillCanvas(ditherCtx, closestPixels, width, height);
+  })
+
   document.querySelector('#standard-dither').addEventListener("click", () => {
     if (!pixelMatrix) {
       console.log('no image found');
@@ -39,16 +49,7 @@ addEventListener("DOMContentLoaded", (event) => {
     }
 
     const ditheredPixels = standardDither(pixelMatrix, MATRIX_SIZE, POWER);
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const color = ditheredPixels[y][x];
-
-        
-        ditherCtx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-        ditherCtx.fillRect(x, y, 1, 1);
-      }
-    }
+    fillCanvas(ditherCtx, ditheredPixels, width, height);
   })
 });
 
