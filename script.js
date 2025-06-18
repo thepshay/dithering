@@ -50,16 +50,12 @@ addEventListener("DOMContentLoaded", () => {
       if (event.target.type === 'radio' && event.target.name === 'power') {
         power = event.target.value;
       }
-
-      console.log(power)
     })
 
     document.querySelector('.matrix-size-container').addEventListener('change', (event) => {
       if (event.target.type === 'radio' && event.target.name === 'matrix-size') {
         matrixSize = event.target.value;
       }
-
-      console.log(matrixSize);
     })
 
 
@@ -72,6 +68,7 @@ addEventListener("DOMContentLoaded", () => {
       console.log("undithered-render: finish");
       console.log(`power: ${power}`);
       console.log(`elapsed time ${endtime - startTime}`);
+      console.log(`---`);
     });
 
     document.querySelector('#standard-dither').addEventListener("click", () => {
@@ -83,6 +80,7 @@ addEventListener("DOMContentLoaded", () => {
       console.log("standard-dither: finish");
       console.log(`power: ${power}, matrix: ${matrixSize}`);
       console.log(`elapsed time ${endtime - startTime}`);
+      console.log(`---`);
     });
 
     document.querySelector('#order-dithering-1-1').addEventListener("click", () => {
@@ -94,6 +92,7 @@ addEventListener("DOMContentLoaded", () => {
       console.log('order-dithering-1-1: finish');
       console.log(`power: ${power}, matrix: ${matrixSize}`);
       console.log(`elapsed time ${endtime - startTime}`);
+      console.log(`---`);
     });
 
     document.querySelector('#order-dithering-1-2').addEventListener("click", () => {
@@ -105,6 +104,7 @@ addEventListener("DOMContentLoaded", () => {
       console.log('order-dithering-1-2: finish');
       console.log(`power: ${power}, matrix: ${matrixSize}`);
       console.log(`elapsed time ${endtime - startTime}`);
+      console.log(`---`);
     });
 
     document.querySelector('#order-dithering-1-3').addEventListener("click", () => {
@@ -116,6 +116,7 @@ addEventListener("DOMContentLoaded", () => {
       console.log('order-dithering-1-3: finish');
       console.log(`power: ${power}, matrix: ${matrixSize}`);
       console.log(`elapsed time ${endtime - startTime}`);
+      console.log(`---`);
     });
 
     document.querySelector('#order-dithering-1-4').addEventListener("click", () => {
@@ -127,6 +128,7 @@ addEventListener("DOMContentLoaded", () => {
       console.log('order-dithering-1-4: finish');
       console.log(`power: ${power}, matrix: ${matrixSize}`);
       console.log(`elapsed time ${endtime - startTime}`);
+      console.log(`---`);
     });
   });
 });
